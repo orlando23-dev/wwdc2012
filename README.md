@@ -23,5 +23,9 @@ git add .gitignore
 Reference - /Users/llv22/Documents/i058959_dev/01_git/01_guide/progit_en.pdf
 Page 18 -> .gitignore file pattern
 
+ISSUE sovling : Your branch is ahead of 'origin/master' by 1 commit.
+Operation : git fetch / git pull sometimes not write/overwrite
+Reference : http://stackoverflow.com/questions/9050978/your-branch-is-ahead-of-origin-master-by-1-commit-on-explicit-push
+
 2, Session 215 - Text and Linguistic Analysis
 author : Douglas Davidson
