@@ -1,3 +1,1 @@
-*.xcuserstate
-*.xcscheme
-*.plist
+215/215.xcodeproj/project.xcworkspace/xcuserdata/ #ignore xcuserdata folder
