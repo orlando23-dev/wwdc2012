@@ -2,4 +2,4 @@
 # 215/215.xcodeproj/project.xcworkspace/xcuserdata/ --> ignore xcuserdata folder, as xcuserdata folder will be generated during workspace/project started
 # 215/215.xcodeproj/project.xcworkspace/xcuserdata/llv22.xcuserdatad/ --> UserInterfaceState.xcuserstate in xcuserdatad should be ignored for breakpoints
 xcuserdata/
-.DS_Store/
+*.DS_Store/
