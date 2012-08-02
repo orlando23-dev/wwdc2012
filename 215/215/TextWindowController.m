@@ -90,11 +90,12 @@
     id color = [NSColor redColor];
     NSRange range = NSMakeRange(0, [strContent length]);
     dispatch_async(dispatch_get_main_queue(), ^{
-    [strContent enumerateSubstringsInRange:range
+        [strContent enumerateSubstringsInRange:range
                                    options:NSStringEnumerationByWords
                                 usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-        [[_textview textStorage]addAttribute:NSForegroundColorAttributeName value:color range:substringRange];
-                                }];
+                                    [[_textview textStorage]addAttribute:NSForegroundColorAttributeName value:color range:substringRange];
+                                }
+         ];
     });
 }
 
