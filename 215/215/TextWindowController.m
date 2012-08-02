@@ -11,6 +11,7 @@
 @interface TextWindowController ()
 
 -(void)enumerateByWords;
+-(void)enumerateByWordsSlowly;
 
 @end
 
@@ -76,6 +77,9 @@
         case 1:
             [self enumerateByWords];
             break;
+        case 2:
+            [self enumerateByWordsSlowly];
+            break;
         default:
             break;
     }
@@ -86,10 +90,16 @@
     id color = [NSColor redColor];
     NSRange range = NSMakeRange(0, [strContent length]);
     dispatch_async(dispatch_get_main_queue(), ^{
-    [strContent enumerateSubstringsInRange:range options:NSStringEnumerationByWords usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+    [strContent enumerateSubstringsInRange:range
+                                   options:NSStringEnumerationByWords
+                                usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
         [[_textview textStorage]addAttribute:NSForegroundColorAttributeName value:color range:substringRange];
-    }];
+                                }];
     });
+}
+
+-(void)enumerateByWordsSlowly{
+    
 }
 
 @end
