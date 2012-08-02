@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "TextWindowController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 

@@ -10,6 +10,16 @@
 
 @implementation AppDelegate
 
+// -------------------------------------------------------------------------------
+//	applicationShouldTerminateAfterLastWindowClosed:sender
+//
+//	NSApplication delegate method placed here so the sample conveniently quits
+//	after we close the window.
+// -------------------------------------------------------------------------------
+-(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender{
+    return (YES);
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
