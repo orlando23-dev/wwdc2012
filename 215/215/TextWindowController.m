@@ -10,6 +10,7 @@
 
 @interface TextWindowController ()
 
+-(void)reload;
 -(void)enumerateByWords;
 -(void)enumerateByWordsSlowly;
 
@@ -51,15 +52,7 @@
 {
 //  NSLog(@"%@", @"awakeFromNib");
     if(_textview){
-        //TODO : GCD loading text logic asynchronously
-        dispatch_async(dispatch_get_main_queue(), ^{
-//           BOOL result = [_textview readRTFDFromFile:@"/Users/llv22/Documents/02_apple_programming/05_wwdc/devcode/readme.rtf"];
-//            NSLog(@"%d", result);
-            //TODO : read abosutely path content - https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/Strings/Articles/readingFiles.html
-            NSBundle * myMainBundle = [NSBundle mainBundle];
-            NSString * rtfFilePath = [myMainBundle pathForResource:@"readme" ofType:@"rtf"];
-            assert([_textview readRTFDFromFile:rtfFilePath]);
-        });
+        [self reload];
     }
 }
 
@@ -73,6 +66,7 @@
     int _selectedIndex = (int)_optionMatrix.selectedRow;
     switch (_selectedIndex) {
         case 0:
+            [self reload];
             break;
         case 1:
             [self enumerateByWords];
@@ -83,6 +77,18 @@
         default:
             break;
     }
+}
+
+-(void)reload{
+    //TODO : GCD loading text logic asynchronously
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //           BOOL result = [_textview readRTFDFromFile:@"/Users/llv22/Documents/02_apple_programming/05_wwdc/devcode/readme.rtf"];
+        //            NSLog(@"%d", result);
+        //TODO : read abosutely path content - https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/Strings/Articles/readingFiles.html
+        NSBundle * myMainBundle = [NSBundle mainBundle];
+        NSString * rtfFilePath = [myMainBundle pathForResource:@"readme" ofType:@"rtf"];
+        assert([_textview readRTFDFromFile:rtfFilePath]);
+    });
 }
 
 -(void)enumerateByWords{
@@ -100,7 +106,15 @@
 }
 
 -(void)enumerateByWordsSlowly{
-    
+    NSString* strContent = [_textview string];
+    id color = [NSColor redColor];
+    NSRange range = NSMakeRange(0, [strContent length]);
+    [strContent enumerateSubstringsInRange:range
+                                   options:NSStringEnumerationByWords
+                                usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                    [[_textview textStorage]addAttribute:NSForegroundColorAttributeName value:color range:substringRange];
+                                }
+     ];
 }
 
 @end
