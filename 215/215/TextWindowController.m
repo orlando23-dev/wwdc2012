@@ -222,6 +222,9 @@
 
 -(void)enumerateByCharacterSet{
     id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    NSRange range = NSMakeRange(0, _strContent.length);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
     NSRange charRange = NSMakeRange(0, 0);
     NSCharacterSet *quoteCharacterSet = [self quoteCharacterSet];
     NSString* strContent = [_textview string];
