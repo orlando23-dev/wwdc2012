@@ -11,6 +11,7 @@
 @interface TextWindowController ()
 
 -(void)reload;
+-(void)fetchDataFinished:(id)valueOfRange;
 -(void)enumerateByWords;
 -(void)enumerateByWordsSlowly;
 
@@ -95,7 +96,11 @@
     NSString* strContent = [_textview string];
     id color = [NSColor redColor];
     NSRange range = NSMakeRange(0, [strContent length]);
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    double delayInSeconds = 0.2;
+    dispatch_time_t _tPopTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    //TODO : dispatch_async
+    dispatch_after(_tPopTime, dispatch_get_main_queue(), ^{
         [strContent enumerateSubstringsInRange:range
                                    options:NSStringEnumerationByWords
                                 usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
@@ -105,16 +110,44 @@
     });
 }
 
+//TODO : http://stackoverflow.com/questions/10883738/nstextview-when-to-automatically-insert-characters-like-auto-matching-parenthe
+//TODO : http://borkware.com/quickies/one?topic=NSTextView
 -(void)enumerateByWordsSlowly{
     NSString* strContent = [_textview string];
+    long lfullTextLength = [strContent length];
+    NSRange range = NSMakeRange(0, lfullTextLength);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    __block NSRange _substringRange;
+    __block NSRange _enclosingRange = NSMakeRange(0, 0);
+    long _leftlen = lfullTextLength;
+    
+    do{
+        //TODO : http://developer.apple.com/library/ios/#documentation/cocoa/reference/foundation/Classes/NSValue_Class/Reference/Reference.html#//apple_ref/occ/clm/NSValue/valueWithRange:
+        [strContent enumerateSubstringsInRange:range
+                                       options:NSStringEnumerationByWords
+                                    usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                        id color = [NSColor redColor];
+                                        [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                                                       value:color
+                                                                       range:substringRange];
+                                        *stop = YES;
+                                        _substringRange = substringRange;
+                                        _enclosingRange = enclosingRange;
+                                    }
+         ];
+        long _lEndWordLocation = _enclosingRange.location + _enclosingRange.length;
+        _leftlen = lfullTextLength - _lEndWordLocation;
+        //TODO : end of _lEndWordLocation may the next start index
+        range = NSMakeRange(_lEndWordLocation, _leftlen);
+    }while (_leftlen > 0);
+}
+
+
+-(void)fetchDataFinished:(id)valueOfRange{
     id color = [NSColor redColor];
-    NSRange range = NSMakeRange(0, [strContent length]);
-    [strContent enumerateSubstringsInRange:range
-                                   options:NSStringEnumerationByWords
-                                usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-                                    [[_textview textStorage]addAttribute:NSForegroundColorAttributeName value:color range:substringRange];
-                                }
-     ];
+    NSValue* _value = (NSValue*)valueOfRange;
+    NSRange substringRange = [_value rangeValue];
+    [[_textview textStorage]addAttribute:NSForegroundColorAttributeName value:color range:substringRange];
 }
 
 @end
