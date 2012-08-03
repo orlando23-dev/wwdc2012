@@ -14,6 +14,10 @@
 -(void)fetchDataFinished:(id)valueOfRange;
 -(void)enumerateByWords;
 -(void)enumerateByWordsSlowly;
+-(void)enumerateByString;
+-(void)enumerateByWordsForSpecificWord;
+-(NSCharacterSet*)quoteCharacterSet;
+-(void)enumerateByCharacterSet;
 
 @end
 
@@ -74,6 +78,15 @@
             break;
         case 2:
             [self enumerateByWordsSlowly];
+            break;
+        case 3:
+            [self enumerateByString];
+            break;
+        case 4:
+            [self enumerateByWordsForSpecificWord];
+            break;
+        case 5:
+            [self enumerateByCharacterSet];
             break;
         default:
             break;
@@ -149,12 +162,80 @@
     }while (_leftlen > 0);
 }
 
-
+#pragma comment delay caller/callee method
 -(void)fetchDataFinished:(id)valueOfRange{
     id color = [NSColor redColor];
     NSValue* _value = (NSValue*)valueOfRange;
     NSRange substringRange = [_value rangeValue];
     [[_textview textStorage]addAttribute:NSForegroundColorAttributeName value:color range:substringRange];
+}
+
+-(void)enumerateByString{
+    id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    long lfullTextLength = [_strContent length];
+    NSRange range = NSMakeRange(0, lfullTextLength);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    
+    NSRange stringRange = NSMakeRange(0, 0);
+    while (NSMaxRange(stringRange) < lfullTextLength) {
+        stringRange = [_strContent rangeOfString:@"resume"
+                                         options:NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch|NSWidthInsensitiveSearch
+                                           range:NSMakeRange(NSMaxRange(stringRange), lfullTextLength - NSMaxRange(stringRange))
+                       ];
+        if (stringRange.length > 0) {
+            [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                           value:color
+                                           range:stringRange];
+        }
+    }
+}
+
+-(void)enumerateByWordsForSpecificWord{
+    id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    NSRange range = NSMakeRange(0, _strContent.length);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    [_strContent enumerateSubstringsInRange:range
+                                    options:NSStringEnumerationByWords
+                                 usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                     NSRange matchRange = [_strContent rangeOfString:@"resume"
+                                                                             options:NSAnchoredSearch |NSCaseInsensitiveSearch |NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch                       range:substringRange];
+                                     if(NSEqualRanges(matchRange, substringRange)){
+                                         [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                                                        value:color
+                                                                        range:substringRange];
+                                     }
+                                 }
+     ];
+}
+
+-(NSCharacterSet*)quoteCharacterSet{
+    static NSCharacterSet *quoteCharacterSet = nil;
+    static dispatch_once_t predicate = 0;
+    dispatch_once(&predicate, ^{
+        quoteCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"\"“”„“,.':/<<>>"]
+                              retain];
+    });
+    return quoteCharacterSet;
+}
+
+-(void)enumerateByCharacterSet{
+    id color = [NSColor redColor];
+    NSRange charRange = NSMakeRange(0, 0);
+    NSCharacterSet *quoteCharacterSet = [self quoteCharacterSet];
+    NSString* strContent = [_textview string];
+    long lfullTextLength = [strContent length];
+    while (NSMaxRange(charRange) < lfullTextLength) {
+        charRange = [strContent rangeOfCharacterFromSet:quoteCharacterSet
+                                                options:0
+                                                  range:NSMakeRange(NSMaxRange(charRange), lfullTextLength - NSMaxRange(charRange))];
+        if (charRange.length > 0) {
+            [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                           value:color
+                                           range:charRange];
+        }
+    }
 }
 
 @end
