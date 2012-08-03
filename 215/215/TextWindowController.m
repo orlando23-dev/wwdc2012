@@ -18,6 +18,8 @@
 -(void)enumerateByWordsForSpecificWord;
 -(NSCharacterSet*)quoteCharacterSet;
 -(void)enumerateByCharacterSet;
+-(BOOL)rangeIsInQuotes:(NSRange)substringRange;
+-(void)enumerateByWordsInQuotes;
 
 @end
 
@@ -87,6 +89,9 @@
             break;
         case 5:
             [self enumerateByCharacterSet];
+            break;
+        case 6:
+            [self enumerateByWordsInQuotes];
             break;
         default:
             break;
@@ -239,6 +244,42 @@
                                            range:charRange];
         }
     }
+}
+
+-(BOOL)rangeIsInQuotes:(NSRange)substringRange{
+    NSString* _strContent = [_textview string];
+    long lstrlength = _strContent.length;
+    NSCharacterSet *quoteCharacterSet = [self quoteCharacterSet];
+    NSRange precedingQuoteRange = NSMakeRange(NSNotFound, 0), followingQuoteRange = NSMakeRange(NSNotFound, 0);
+    if (substringRange.location > 0) {
+        precedingQuoteRange = [_strContent rangeOfCharacterFromSet:quoteCharacterSet
+                                                           options:NSAnchoredSearch | NSBackwardsSearch
+                                                             range:NSMakeRange(0, substringRange.location)
+                               ];
+    }
+    if(NSMaxRange(substringRange) < lstrlength){
+        followingQuoteRange = [_strContent rangeOfCharacterFromSet:quoteCharacterSet
+                                                           options:NSAnchoredSearch
+                                                             range:NSMakeRange(NSMaxRange(substringRange), lstrlength - NSMaxRange(substringRange))
+                               ];
+    }
+    return precedingQuoteRange.length > 0 && followingQuoteRange.length > 0;
+}
+
+-(void)enumerateByWordsInQuotes{
+    id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    NSRange range = NSMakeRange(0, _strContent.length);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    [_strContent enumerateSubstringsInRange:range
+                                    options:NSStringEnumerationByWords
+                                 usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                     if ([self rangeIsInQuotes:substringRange]) {
+                                         [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                                                        value:color
+                                                                        range:substringRange];
+                                     }
+                                 }];
 }
 
 @end
