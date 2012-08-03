@@ -97,7 +97,7 @@
     id color = [NSColor redColor];
     NSRange range = NSMakeRange(0, [strContent length]);
     [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
-    double delayInSeconds = 0.2;
+    double delayInSeconds = 0.0;
     dispatch_time_t _tPopTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     //TODO : dispatch_async
     dispatch_after(_tPopTime, dispatch_get_main_queue(), ^{
@@ -112,29 +112,36 @@
 
 //TODO : http://stackoverflow.com/questions/10883738/nstextview-when-to-automatically-insert-characters-like-auto-matching-parenthe
 //TODO : http://borkware.com/quickies/one?topic=NSTextView
+//TODO : Colorized NSTextView http://topdraw.googlecode.com/svn-history/r154/trunk/Editor/ColorizingTextView.m
 -(void)enumerateByWordsSlowly{
     NSString* strContent = [_textview string];
     long lfullTextLength = [strContent length];
     NSRange range = NSMakeRange(0, lfullTextLength);
+    //TODO : remove existing color font
     [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
     __block NSRange _substringRange;
     __block NSRange _enclosingRange = NSMakeRange(0, 0);
     long _leftlen = lfullTextLength;
+    //TODO : submit to MachQueue with performSelector via increasing delta delay;
+    double _timesleep = 0.001;
+    long _counter = 0;
     
     do{
         //TODO : http://developer.apple.com/library/ios/#documentation/cocoa/reference/foundation/Classes/NSValue_Class/Reference/Reference.html#//apple_ref/occ/clm/NSValue/valueWithRange:
         [strContent enumerateSubstringsInRange:range
                                        options:NSStringEnumerationByWords
                                     usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-                                        id color = [NSColor redColor];
-                                        [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
-                                                                       value:color
-                                                                       range:substringRange];
                                         *stop = YES;
                                         _substringRange = substringRange;
                                         _enclosingRange = enclosingRange;
                                     }
          ];
+        NSValue* _substringValueRange = [NSValue valueWithRange:_substringRange];
+        [self performSelector:@selector(fetchDataFinished:) withObject:_substringValueRange afterDelay:_timesleep];
+        if(_counter % 3 == 0){
+            _timesleep += _timesleep/2.0;
+        }
+        _counter++;
         long _lEndWordLocation = _enclosingRange.location + _enclosingRange.length;
         _leftlen = lfullTextLength - _lEndWordLocation;
         //TODO : end of _lEndWordLocation may the next start index
