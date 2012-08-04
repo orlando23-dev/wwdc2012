@@ -219,7 +219,8 @@
     static NSCharacterSet *quoteCharacterSet = nil;
     static dispatch_once_t predicate = 0;
     dispatch_once(&predicate, ^{
-        quoteCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"\"“”„“,.':/<<>>"]
+        //TODO : . / not in target set
+        quoteCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"\"“”„“,':<<>>"]
                               retain];
     });
     return quoteCharacterSet;
