@@ -20,6 +20,7 @@
 -(void)enumerateByCharacterSet;
 -(BOOL)rangeIsInQuotes:(NSRange)substringRange;
 -(void)enumerateByWordsInQuotes;
+-(void)enumerateByRegualExpression;
 
 @end
 
@@ -92,6 +93,9 @@
             break;
         case 6:
             [self enumerateByWordsInQuotes];
+            break;
+        case 7:
+            [self enumerateByRegualExpression];
             break;
         default:
             break;
@@ -281,6 +285,24 @@
                                                                         range:substringRange];
                                      }
                                  }];
+}
+
+-(void)enumerateByRegualExpression{
+    id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    NSRange range = NSMakeRange(0, _strContent.length);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b(i|o)(n|f)\\b" options:NSRegularExpressionCaseInsensitive error:&error];
+    [regex enumerateMatchesInString:_strContent
+                            options:0
+                              range:range
+                         usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+                             //TODO : colorize all of ranges once in a while
+                             [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                                            value:color
+                                                            range:[result range]];
+                         }];
 }
 
 @end
