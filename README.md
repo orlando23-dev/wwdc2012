@@ -29,3 +29,6 @@ Reference : http://stackoverflow.com/questions/9050978/your-branch-is-ahead-of-o
 
 2, Session 215 - Text and Linguistic Analysis
 author : Douglas Davidson
+implementation : in 215
+furthermore : Jennifer Moore in Natural Languages Group [39:22, 12 minutes]
+implementation : in 215a [later for 2/3 days]
