@@ -23,7 +23,8 @@
 -(void)enumerateByRegualExpression;
 -(void)enumerateByDataDetector;
 -(void)enumerateByNouns;
-
+-(void)enumerateByNounsInQuotes;
+-(void)enumerateByNames;
 @end
 
 @implementation TextWindowController
@@ -104,6 +105,12 @@
             break;
         case 9:
             [self enumerateByNouns];
+            break;
+        case 10:
+            [self enumerateByNounsInQuotes];
+            break;
+        case 11:
+            [self enumerateByNames];
             break;
         default:
             break;
@@ -350,6 +357,56 @@
                                                                 value:color
                                                                 range:tokenRange];
 //                                 NSLog(@"%@", [_strContent substringWithRange:tokenRange]);
+                             }
+                         }];
+}
+
+-(void)enumerateByNounsInQuotes{
+    id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    long _lstrLength = _strContent.length;
+    NSRange range = NSMakeRange(0, _strContent.length);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc]initWithTagSchemes:[NSArray arrayWithObjects:NSLinguisticTagSchemeTokenType, NSLinguisticTagSchemeLexicalClass, NSLinguisticTagSchemeNameType, nil]
+                                                                       options:0];
+    [tagger setString:_strContent];
+    [tagger enumerateTagsInRange:range scheme:NSLinguisticTagSchemeLexicalClass
+                         options:0 usingBlock:^(NSString *tag, NSRange tokenRange, NSRange sentenceRange, BOOL *stop) {
+                             if (tag == NSLinguisticTagNoun) {
+                                 //TODO : check-up wth tag in quotes setting - tagger implementation with openquote
+                                 BOOL precededByQuote = (tokenRange.location > 0 && [tagger tagAtIndex:tokenRange.location - 1
+                                                                                                scheme:NSLinguisticTagSchemeLexicalClass
+                                                                                            tokenRange:NULL sentenceRange:NULL] == NSLinguisticTagOpenQuote);
+                                 BOOL followedByQuote = (NSMaxRange(tokenRange) < _lstrLength && [tagger tagAtIndex:NSMaxRange(tokenRange)
+                                                                                                             scheme:NSLinguisticTagSchemeLexicalClass
+                                                                                                         tokenRange:NULL
+                                                                                                      sentenceRange:NULL] ==
+                                                         NSLinguisticTagCloseQuote);
+                                 if (precededByQuote && followedByQuote) {
+                                     [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                                                    value:color
+                                                                    range:tokenRange];
+                                 }
+                             }
+                         }];
+}
+
+-(void)enumerateByNames{
+    id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    NSRange range = NSMakeRange(0, _strContent.length);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc]initWithTagSchemes:[NSArray arrayWithObjects:NSLinguisticTagSchemeTokenType, NSLinguisticTagSchemeLexicalClass, NSLinguisticTagSchemeNameType, nil]
+                                                                       options:0];
+    [tagger setString:_strContent];
+    [tagger enumerateTagsInRange:range scheme:NSLinguisticTagSchemeNameType
+                         options:0 usingBlock:^(NSString *tag, NSRange tokenRange, NSRange sentenceRange, BOOL *stop) {
+                             if (tag == NSLinguisticTagPersonalName ||
+                                 tag == NSLinguisticTagPlaceName ||
+                                 tag == NSLinguisticTagOrganizationName) {
+                                 [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                                                value:color
+                                                                range:tokenRange];
                              }
                          }];
 }
