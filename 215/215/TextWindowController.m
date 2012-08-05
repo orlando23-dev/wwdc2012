@@ -22,6 +22,7 @@
 -(void)enumerateByWordsInQuotes;
 -(void)enumerateByRegualExpression;
 -(void)enumerateByDataDetector;
+-(void)enumerateByNouns;
 
 @end
 
@@ -100,6 +101,9 @@
             break;
         case 8:
             [self enumerateByDataDetector];
+            break;
+        case 9:
+            [self enumerateByNouns];
             break;
         default:
             break;
@@ -228,7 +232,7 @@
     static dispatch_once_t predicate = 0;
     dispatch_once(&predicate, ^{
         //TODO : . / not in target set
-        quoteCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"\"“”„“,':<<>>"]
+        quoteCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"\"“”„“,':<<>>⟪⟫"]
                               retain];
     });
     return quoteCharacterSet;
@@ -323,7 +327,31 @@
                                 [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
                                                                value:color
                                                                range:[result range]];
+                                NSLog(@"%lu sections of ranges, type - %llu\n", [result numberOfRanges], [result resultType]);
                             }];
+}
+
+//TODO : >> will be recognized as nouns, why?
+//TODO :  Now try http://ushistory.org. will recognize http and ushistory.org.
+//However,  Now try
+//http://ushistory.org. won't recognize http and ushistory.org
+-(void)enumerateByNouns{
+    id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    NSRange range = NSMakeRange(0, _strContent.length);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc]initWithTagSchemes:[NSArray arrayWithObjects:NSLinguisticTagSchemeTokenType, NSLinguisticTagSchemeLexicalClass, NSLinguisticTagSchemeNameType, nil]
+                                                                       options:0];
+    [tagger setString:_strContent];
+    [tagger enumerateTagsInRange:range scheme:NSLinguisticTagSchemeLexicalClass
+                         options:0 usingBlock:^(NSString *tag, NSRange tokenRange, NSRange sentenceRange, BOOL *stop) {
+                             if (tag == NSLinguisticTagNoun) {
+                                 [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                                                value:color
+                                                                range:tokenRange];
+//                                 NSLog(@"%@", [_strContent substringWithRange:tokenRange]);
+                             }
+                         }];
 }
 
 @end
