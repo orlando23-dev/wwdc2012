@@ -21,6 +21,7 @@
 -(BOOL)rangeIsInQuotes:(NSRange)substringRange;
 -(void)enumerateByWordsInQuotes;
 -(void)enumerateByRegualExpression;
+-(void)enumerateByDataDetector;
 
 @end
 
@@ -96,6 +97,9 @@
             break;
         case 7:
             [self enumerateByRegualExpression];
+            break;
+        case 8:
+            [self enumerateByDataDetector];
             break;
         default:
             break;
@@ -303,6 +307,23 @@
                                                             value:color
                                                             range:[result range]];
                          }];
+}
+
+-(void)enumerateByDataDetector{
+    id color = [NSColor redColor];
+    NSString* _strContent = [_textview string];
+    NSRange range = NSMakeRange(0, _strContent.length);
+    [[_textview textStorage]removeAttribute:NSForegroundColorAttributeName range:range];
+    NSError *error = nil;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
+    [detector enumerateMatchesInString:_strContent
+                               options:0
+                                 range:range
+                            usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+                                [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
+                                                               value:color
+                                                               range:[result range]];
+                            }];
 }
 
 @end
