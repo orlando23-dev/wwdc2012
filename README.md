@@ -33,5 +33,5 @@ implementation : in 215
 furthermore : Jennifer Moore in Natural Languages Group [39:22, 12 minutes]
 implementation : in 215a [later for 2/3 days]
 
-3, Session 208 - Saving and Restoring Application State on iOS
-author : 
+3, Session 216 - Advanced Appearance Customization on iOS
+author : Jacob Xiao
