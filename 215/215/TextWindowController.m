@@ -298,7 +298,7 @@
                             options:0
                               range:range
                          usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                             //TODO : colorize all of ranges once in a while
+                             //TODO : colorize all of ranges once in a while - for all
                              [[_textview textStorage]addAttribute:NSForegroundColorAttributeName
                                                             value:color
                                                             range:[result range]];
