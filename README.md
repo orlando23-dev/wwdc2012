@@ -35,3 +35,8 @@ implementation : in 215a [later for 2/3 days]
 
 3, Session 216 - Advanced Appearance Customization on iOS
 author : Jacob Xiao
+follow-up : <this required iOS6.0 and XCode 4.5, will be implemented in virtual 10.8 preview later>
+
+4, Session 220 - Keyboard input on iOS
+author : Justin Garcia
+implementation : in 220
