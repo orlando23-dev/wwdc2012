@@ -4,3 +4,4 @@
 # <dir>/ - removal of dir <file> - removal of <file>
 xcuserdata/
 .DS_Store
+project.xcworkspace/
