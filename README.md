@@ -40,3 +40,7 @@ follow-up : <this required iOS6.0 and XCode 4.5, will be implemented in virtual 
 4, Session 220 - Keyboard input on iOS
 author : Justin Garcia
 implementation : in 220
+
+5, Session 210 - Accessiblity for iOS
+
+6, Session 223 - Enhancing User Experience with Scroll Views [based on 220]
