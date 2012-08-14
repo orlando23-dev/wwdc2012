@@ -44,3 +44,7 @@ implementation : in 220
 5, Session 210 - Accessiblity for iOS
 
 6, Session 223 - Enhancing User Experience with Scroll Views [based on 220]
+
+7, Session 405 - Modern Objective-C
+author : Patrick C. Beard
+implementation : none - just theory for update
