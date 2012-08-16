@@ -42,6 +42,9 @@ author : Justin Garcia
 implementation : in 220
 
 5, Session 210 - Accessiblity for iOS
+author : Chris Fleizach
+impelmentation : in 210 demo, here just, attached the existing source code from wwdc demo here - 210 - Accessibility for iOS. [take care, chris forget to add CALayer definetion here, so during compilation, you may meet with issue. none of member of CALayer not visualable. see, http://stackoverflow.com/questions/9829371/property-cannot-be-found-on-forward-class-object]
+pre-requisitive : in xcode 4.5, with preview version of ***iOS 6.0***
 
 6, Session 223 - Enhancing User Experience with Scroll Views [based on 220]
 
