@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F153FA581651340900E75EF7 /* ReadMe.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = F153FA571651340900E75EF7 /* ReadMe.rtfd */; };
+		F15F068B1658E7F300A74400 /* Zipper.m in Sources */ = {isa = PBXBuildFile; fileRef = F15F068A1658E7F300A74400 /* Zipper.m */; };
+		F15F068E1658E80A00A74400 /* Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F15F068D1658E80A00A74400 /* Fetcher.m */; };
+		F15F06901658E98400A74400 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F15F068F1658E98400A74400 /* libz.dylib */; };
 		F18972E2164FE13000D3B979 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F18972E1164FE13000D3B979 /* Cocoa.framework */; };
 		F18972EC164FE13000D3B979 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F18972EA164FE13000D3B979 /* InfoPlist.strings */; };
 		F18972EE164FE13000D3B979 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F18972ED164FE13000D3B979 /* main.m */; };
@@ -18,6 +21,12 @@
 
 /* Begin PBXFileReference section */
 		F153FA571651340900E75EF7 /* ReadMe.rtfd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.rtfd; path = ReadMe.rtfd; sourceTree = "<group>"; };
+		F15F06881658E71D00A74400 /* SingleSandBoxedFetch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SingleSandBoxedFetch.entitlements; sourceTree = "<group>"; };
+		F15F06891658E7F300A74400 /* Zipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Zipper.h; sourceTree = "<group>"; };
+		F15F068A1658E7F300A74400 /* Zipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Zipper.m; sourceTree = "<group>"; };
+		F15F068C1658E80A00A74400 /* Fetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fetcher.h; sourceTree = "<group>"; };
+		F15F068D1658E80A00A74400 /* Fetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fetcher.m; sourceTree = "<group>"; };
+		F15F068F1658E98400A74400 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		F18972DD164FE13000D3B979 /* SingleSandBoxedFetch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingleSandBoxedFetch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F18972E1164FE13000D3B979 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F18972E4164FE13000D3B979 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -38,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F15F06901658E98400A74400 /* libz.dylib in Frameworks */,
 				F18972E2164FE13000D3B979 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +76,7 @@
 		F18972E0164FE13000D3B979 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F15F068F1658E98400A74400 /* libz.dylib */,
 				F18972E1164FE13000D3B979 /* Cocoa.framework */,
 				F18972E3164FE13000D3B979 /* Other Frameworks */,
 			);
@@ -85,6 +96,10 @@
 		F18972E7164FE13000D3B979 /* SingleSandBoxedFetch */ = {
 			isa = PBXGroup;
 			children = (
+				F15F06891658E7F300A74400 /* Zipper.h */,
+				F15F068A1658E7F300A74400 /* Zipper.m */,
+				F15F068C1658E80A00A74400 /* Fetcher.h */,
+				F15F068D1658E80A00A74400 /* Fetcher.m */,
 				F18972F3164FE13000D3B979 /* AppDelegate.h */,
 				F18972F4164FE13000D3B979 /* AppDelegate.m */,
 				F18972F6164FE13000D3B979 /* MainMenu.xib */,
@@ -96,6 +111,7 @@
 		F18972E8164FE13000D3B979 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F15F06881658E71D00A74400 /* SingleSandBoxedFetch.entitlements */,
 				F18972E9164FE13000D3B979 /* SingleSandBoxedFetch-Info.plist */,
 				F18972EA164FE13000D3B979 /* InfoPlist.strings */,
 				F18972ED164FE13000D3B979 /* main.m */,
@@ -172,6 +188,8 @@
 			files = (
 				F18972EE164FE13000D3B979 /* main.m in Sources */,
 				F18972F5164FE13000D3B979 /* AppDelegate.m in Sources */,
+				F15F068B1658E7F300A74400 /* Zipper.m in Sources */,
+				F15F068E1658E80A00A74400 /* Fetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +279,8 @@
 		F18972FC164FE13000D3B979 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SingleSandBoxedFetch/SingleSandBoxedFetch.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingleSandBoxedFetch/SingleSandBoxedFetch-Prefix.pch";
@@ -273,6 +293,8 @@
 		F18972FD164FE13000D3B979 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SingleSandBoxedFetch/SingleSandBoxedFetch.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingleSandBoxedFetch/SingleSandBoxedFetch-Prefix.pch";

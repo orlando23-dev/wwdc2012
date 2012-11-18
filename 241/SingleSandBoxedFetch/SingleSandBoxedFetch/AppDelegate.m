@@ -66,12 +66,12 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
 
 // TODO : Fetch Action
 - (IBAction)fetch:(id)sender{
+    // desc - reset UI status
     [self resetDownloadPanelToStart];
 }
 
 // TODO : reset DownloadPanel with initialization of "Downloading Message" and fetch url
 - (void)resetDownloadPanelToStart {
-    // desc - reset UI status
     [[NSUserDefaults standardUserDefaults] setObject:[self.sourceURL stringValue] forKey:_strLastFetchURL];
     [self startProgressPanelWithMessage:@"Downloading..." indeterminate:NO];
 }
