@@ -1,7 +1,6 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
-}
-{\colortbl;\red255\green255\blue255;\red14\green14\blue255;\red81\green112\blue255;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red14\green14\blue255;}
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
@@ -15,63 +14,10 @@
 Download url - {\field{\*\fldinst{HYPERLINK "http://images.apple.com/ipad/overview/images/hero_slide1.png"}}{\fldrslt 
 \f1\fs22 \cf2 \CocoaLigature0 http://images.apple.com/ipad/overview/images/hero_slide1.png}}\
 \
-I) MainMenu.xib\
-create NSPanel and 
-\b dis-check the title of NSPanel.\
-
-\b0 How-to enable shared User Default Value :  Cocoa Programming for Mac OSX - chapter 13 page 166.\
-	--> MainMenu.xib - 
-\b "showing binding" for Download NSPanel [Select the subView of NSView] 
-\b0 to enable "hidden"\
-	--> Issue as follow :  \
-	* "values" without 
-\b \ul model key path
-\b0 \ulnone \
-	
-\f2\b\fs22 \CocoaLigature0 2012-11-18 11:10:36.120 SingleSandBoxedFetch[882:303] An uncaught exception was raised\
-\pard\tx529\pardeftab529\pardirnatural
-\cf0 2012-11-18 11:10:36.121 SingleSandBoxedFetch[882:303] Cannot create BOOL from object <_NSControllerObjectProxy: 0x10014d740> of class _NSControllerObjectProxy\
-2012-11-18 11:10:36.123 SingleSandBoxedFetch[882:303] (\
-	0   CoreFoundation                      0x00007fff8e7670a6 __exceptionPreprocess + 198\
-	1   libobjc.A.dylib                     0x00007fff8f2733f0 objc_exception_throw + 43\
-	2   CoreFoundation                      0x00007fff8e766ee8 +[NSException raise:format:arguments:] + 104\
-	3   AppKit                              0x00007fff8f8237e6 _NSBoolFromValue + 424\
-	4   AppKit                              0x00007fff8f823051 -[NSEditableBinder hiddenState] + 81\
-	5   AppKit                              0x00007fff8f822fdb -[NSEditableBinder _hiddenStateWithMode:] + 44\
-	6   AppKit                              0x00007fff8f822db3 -[NSEditableBinder _setStatesImmediatelyInObject:mode:triggerRedisplay:] + 567\
-	7   AppKit                              0x00007fff8f822b75 -[NSEditableBinder _observeValueForKeyPath:ofObject:context:] + 122\
-	8   AppKit                              0x00007fff8f81a779 -[NSObject(NSKeyValueBindingCreation) bind:toObject:withKeyPath:options:] + 641\
-	9   AppKit                              0x00007fff8f6a317a -[NSIBObjectData nibInstantiateWithOwner:topLevelObjects:] + 1012\
-	10  AppKit                              0x00007fff8f6821fd loadNib + 317\
-	11  AppKit                              0x00007fff8f681729 +[NSBundle(NSNibLoading) _loadNibFile:nameTable:withZone:ownerBundle:] + 219\
-	12  AppKit                              0x00007fff8f68155e -[NSBundle(NSNibLoading) loadNibNamed:owner:topLevelObjects:] + 200\
-	13  AppKit                              0x00007fff8f68133e +[NSBundle(NSNibLoading) loadNibNamed:owner:] + 360\
-	14  AppKit                              0x00007fff8f67dadf NSApplicationMain + 398\
-	15  SingleSandBoxedFetch                0x00000001000019d2 main + 34\
-	16  libdyld.dylib                       0x00007fff8bfe87e1 start + 0\
-	17  ???                                 0x0000000000000003 0x0 + 3\
-)\
-\pard\tx529\pardeftab529\pardirnatural
-\cf3 (lldb) 
-\f0\b0\fs24 \cf0 \CocoaLigature1 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 	* solution : add "Model Key Path" with abitrary key will be sufficient\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-\cf0 	{{\NeXTGraphic Pasted Graphic.tiff \width5140 \height7300
-}¬}\
+I) XPC interface\
 \
-enable entitlement of sandbox application : \
-	* Enable App Sandboxing\
-	* Allow Outgoing Network Connections\
-	* User Selected File Access - Read/Write Access\
-then SingleSandBoxedFetch.entitlements will be generated.\
-Compared with standard, just manually add 
-\b "com.apple.security.documents.user-selected.read-write" = YES
-\b0 .\
+II) XPC service proxy\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 II) Zipper.h and Fetcher.h definition\
-* add libz.dylib for compression helper\
-* migrate standard library classes into zipper and fetcher classes and do integration\
+II) XPC integration\
 \
 }
