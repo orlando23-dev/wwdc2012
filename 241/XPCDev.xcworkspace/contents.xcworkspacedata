@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:XPCSandBoxedFetch/XPCSandBoxedFetch.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:SingleSandBoxedFetch/SingleSandBoxedFetch.xcodeproj">
    </FileRef>
 </Workspace>
