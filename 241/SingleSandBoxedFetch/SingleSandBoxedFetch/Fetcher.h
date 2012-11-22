@@ -20,6 +20,8 @@
     void (^replyBlock)(NSFileHandle *, NSError *);
 }
 
+- (id)initWithFetchProgressDelegate:(id<FetchProgress>) delegate;
+
 - (void)fetchURL:(NSURL *)url
        withReply:(void (^)(NSFileHandle *, NSError *))reply;
 // This property is a weak reference because the connection will retain this object, so we don't want to create a retain cycle.

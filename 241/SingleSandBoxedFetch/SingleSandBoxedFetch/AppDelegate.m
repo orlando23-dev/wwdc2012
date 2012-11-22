@@ -19,10 +19,21 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
 @interface AppDelegate (PrivateMethods)
 
 - (void)resetDownloadPanelToStart;
+- (void)stopProgressPanel;
+- (void)setProgress:(double)progress;
 
 @end
 
 @implementation AppDelegate
+
+#pragma mark Error Alert Sheet
+
+- (void)showErrorAlert:(NSError *)error {
+    [[NSAlert alertWithError:error] beginSheetModalForWindow:self.window
+                                               modalDelegate:self
+                                              didEndSelector:nil
+                                                 contextInfo:nil];
+}
 
 #pragma mark - progress panel sheet
 
@@ -45,6 +56,17 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
           contextInfo:NULL];
 }
 
+- (void)stopProgressPanel {
+    [self.progressPanel orderOut:self];
+    [NSApp endSheet:self.progressPanel returnCode:0];
+}
+
+- (void)setProgress:(double)progress {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.progressIndicator setDoubleValue:progress];
+    }];
+}
+
 #pragma mark - application termination
 
 - (void)applicationWillFinishLaunching:(NSNotification*)aNotification {
@@ -62,12 +84,94 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
     return (YES);
 }
 
+#pragma mark Save Panel Sheet
+
+- (void)saveFile:(NSFileHandle *)fileHandle
+{
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    
+    NSString *fileName = [[NSURL URLWithString:[self.sourceURL stringValue]] lastPathComponent];
+    if ([self.compressCheckbox state] == NSOffState) {
+        [savePanel setNameFieldStringValue:fileName];
+    } else {
+        [savePanel setNameFieldStringValue:[fileName stringByAppendingPathExtension:@"gz"]];
+    }
+    
+    [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSOKButton) {
+            [savePanel orderOut:self];
+            
+            NSError *error;
+            
+            if ([self.compressCheckbox state] == NSOffState) {
+                [self startProgressPanelWithMessage:@"Copying..." indeterminate:YES];
+                
+                NSData *fetchedData = [fileHandle availableData];
+                BOOL result = [fetchedData writeToURL:[savePanel URL] options:0 error:&error];
+                if (!result) {
+                    [self showErrorAlert:error];
+                }
+                
+                [self stopProgressPanel];
+                [fileHandle closeFile];
+                
+            } else {
+                [self startProgressPanelWithMessage:@"Compressing..." indeterminate:YES];
+                
+                // Create the file, then create an NSFileHandle to transport it to our zip service.
+                if (![[NSData data] writeToURL:[savePanel URL] options:0 error:&error]) {
+                    [fileHandle closeFile];
+                    [self showErrorAlert:error];
+                    return;
+                }
+                
+                // Create an NSFileHandle for transporting to our zip service. By opening it here, we are able to transfer the ability to write to this file to the service even though it does not have permission to open it on its own.
+                NSFileHandle *outFile = [NSFileHandle fileHandleForWritingToURL:[savePanel URL] error:&error];
+                if (!outFile) {
+                    [fileHandle closeFile];
+                    [self showErrorAlert:error];
+                    return;
+                }
+                
+                // Create a connection to the service and send it the message along with our file handles.
+                self->zipper = [[Zipper alloc]init];
+                
+                [self->zipper compressFile:fileHandle toFile:outFile withReply:^(NSError *error) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [self stopProgressPanel];
+                        if (error) {
+                            [self showErrorAlert:error];
+                        }
+                    }];
+                }];
+            }
+        }
+        
+        [fileHandle closeFile];
+    }];
+}
+
 #pragma mark - Button action of fetch download resource and cancel download 
 
 // TODO : Fetch Action
 - (IBAction)fetch:(id)sender{
     // desc - reset UI status
     [self resetDownloadPanelToStart];
+    self->fetcher = [[Fetcher alloc]initWithFetchProgressDelegate:self];
+    [self->fetcher fetchURL:[NSURL URLWithString:[self.sourceURL stringValue]]
+                  withReply:^(NSFileHandle *fileHandle, NSError *error) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self stopProgressPanel];
+            
+            if (error) {
+                [self showErrorAlert:error];
+            } else if ([fileHandle fileDescriptor] == -1) {
+                [self showErrorAlert:[NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:nil]];
+            } else {
+                [self saveFile:fileHandle];
+            }
+        }];
+    }];
 }
 
 // TODO : reset DownloadPanel with initialization of "Downloading Message" and fetch url
@@ -76,9 +180,10 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
     [self startProgressPanelWithMessage:@"Downloading..." indeterminate:NO];
 }
 
-//TODO : Save Panel Sheet
+//TODO : Cancel downloading
 - (IBAction)cancel:(id)sender{
-    
+    [self.progressPanel orderOut:self];
+    [NSApp endSheet:self.progressPanel returnCode:1];
 }
 
 

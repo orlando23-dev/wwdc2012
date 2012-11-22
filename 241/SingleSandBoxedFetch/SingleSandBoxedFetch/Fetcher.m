@@ -12,9 +12,9 @@
 
 @implementation Fetcher
 
-- (id)initWithReply:(void (^)(NSFileHandle*, NSError*))reply{
+- (id)initWithFetchProgressDelegate:(id<FetchProgress>) delegate{
     if (self = [super init]) {
-        self->replyBlock = reply;
+        self->_fetchDelegate = delegate;
     }
     return (self);
 }

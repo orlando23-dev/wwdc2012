@@ -8,7 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+#import "Zipper.h"
+#import "Fetcher.h"
+
+@interface AppDelegate : NSObject <FetchProgress, NSApplicationDelegate>{
+@private
+    // desc - proxy for downloading and compressing
+    Zipper* zipper;
+    Fetcher* fetcher;
+}
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSButton *compressCheckbox;
