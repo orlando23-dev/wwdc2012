@@ -89,7 +89,6 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
 - (void)saveFile:(NSFileHandle *)fileHandle
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
-    
     NSString *fileName = [[NSURL URLWithString:[self.sourceURL stringValue]] lastPathComponent];
     if ([self.compressCheckbox state] == NSOffState) {
         [savePanel setNameFieldStringValue:fileName];
@@ -102,7 +101,6 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
             [savePanel orderOut:self];
             
             NSError *error;
-            
             if ([self.compressCheckbox state] == NSOffState) {
                 [self startProgressPanelWithMessage:@"Copying..." indeterminate:YES];
                 
@@ -144,6 +142,7 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
                         }
                     }];
                 }];
+                self->zipper = nil;
             }
         }
         
@@ -172,6 +171,7 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
             }
         }];
     }];
+    self->fetcher = nil;
 }
 
 // TODO : reset DownloadPanel with initialization of "Downloading Message" and fetch url
