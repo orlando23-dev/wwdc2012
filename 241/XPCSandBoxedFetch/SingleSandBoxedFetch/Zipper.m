@@ -13,6 +13,19 @@
 
 #define ZIP_BUF_SIZE	16384
 
+#pragma mark - Zip-service listener delegate
+
+- (BOOL)            listener:(NSXPCListener *)listener
+   shouldAcceptNewConnection:(NSXPCConnection *)newConnection{
+    newConnection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(Zip)];
+    newConnection.exportedObject = self;
+    [newConnection resume];
+    return YES;
+}
+
+
+#pragma mark - Zip-service functionality implementaiton
+
 /**
  * refactoring with c, don't use goto any more.
  *

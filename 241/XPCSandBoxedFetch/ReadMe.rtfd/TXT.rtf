@@ -30,10 +30,11 @@ bundle uuid - com.dreamtotrue.SandboxedFetch.zip-service\
 AFTER BUILD OF main application, then show content packages in xpcsandboxedfetch with sub-xpcservices folder, see the contents in lists.\
 \
 * refactoring of zip-service of interface and implementation\
-\
-\
-II) XPC service proxy\
-\
-II) XPC integration\
+1, refactor the Zipper.h header file\
+2, in Zipper.m implemented client proxy logic, for listening to change via NSXPCConnection\
+3, in main application of AppDelegate for zipping item, change Zipper* proxy into remoteObjectProxy and delegate to implementation\
+4, debugging with zip-service, in run with debug schema, 
+\b select Executable with XPC image under debug executable application, then wait for response option
+\b0 .\
 \
 }

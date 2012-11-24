@@ -132,7 +132,8 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
                 }
                 
                 // Create a connection to the service and send it the message along with our file handles.
-                self->zipper = [[Zipper alloc]init];
+//                self->zipper = [[Zipper alloc]init];
+                self->zipper = [Zipper sharedZipper];
                 
                 [self->zipper compressFile:fileHandle toFile:outFile withReply:^(NSError *error) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{

@@ -131,9 +131,13 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
                     return;
                 }
                 
+                /* XPC interface changes */
                 // Create a connection to the service and send it the message along with our file handles.
-                self->zipper = [[Zipper alloc]init];
+                NSXPCConnection* connection = [[NSXPCConnection alloc]initWithServiceName:@"com.dreamtotrue.SandboxedFetch.zip-service"];
+                connection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(Zip)];
+                [connection resume];
                 
+                self->zipper = [connection remoteObjectProxy];
                 [self->zipper compressFile:fileHandle toFile:outFile withReply:^(NSError *error) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                         [self stopProgressPanel];
@@ -141,6 +145,7 @@ NSString* const _strLastFetchURL = @"LastFetchURL";
                             [self showErrorAlert:error];
                         }
                     }];
+                    [connection invalidate];
                 }];
                 self->zipper = nil;
             }

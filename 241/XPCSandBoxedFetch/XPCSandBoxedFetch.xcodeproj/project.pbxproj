@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F153FA581651340900E75EF7 /* ReadMe.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = F153FA571651340900E75EF7 /* ReadMe.rtfd */; };
-		F15F068B1658E7F300A74400 /* Zipper.m in Sources */ = {isa = PBXBuildFile; fileRef = F15F068A1658E7F300A74400 /* Zipper.m */; };
 		F15F068E1658E80A00A74400 /* Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F15F068D1658E80A00A74400 /* Fetcher.m */; };
 		F15F06901658E98400A74400 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F15F068F1658E98400A74400 /* libz.dylib */; };
 		F18972E2164FE13000D3B979 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F18972E1164FE13000D3B979 /* Cocoa.framework */; };
@@ -23,6 +22,7 @@
 		F1E6780F1660833F00863412 /* zip-service.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = F1E6780E1660833F00863412 /* zip-service.entitlements */; };
 		F1E67810166083AB00863412 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F15F068F1658E98400A74400 /* libz.dylib */; };
 		F1E67814166085D300863412 /* com.dreamtotrue.SandboxedFetch.zip-service.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = F1E677FE166082AF00863412 /* com.dreamtotrue.SandboxedFetch.zip-service.xpc */; };
+		F1E6781E1660888E00863412 /* Zipper.m in Sources */ = {isa = PBXBuildFile; fileRef = F15F068A1658E7F300A74400 /* Zipper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -285,7 +285,6 @@
 			files = (
 				F18972EE164FE13000D3B979 /* main.m in Sources */,
 				F18972F5164FE13000D3B979 /* AppDelegate.m in Sources */,
-				F15F068B1658E7F300A74400 /* Zipper.m in Sources */,
 				F15F068E1658E80A00A74400 /* Fetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1E67809166082B000863412 /* main.m in Sources */,
+				F1E6781E1660888E00863412 /* Zipper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +485,7 @@
 				F1E6780B166082B000863412 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
