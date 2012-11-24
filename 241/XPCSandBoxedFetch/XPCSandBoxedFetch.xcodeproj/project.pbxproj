@@ -17,7 +17,36 @@
 		F18972F2164FE13000D3B979 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F18972F0164FE13000D3B979 /* Credits.rtf */; };
 		F18972F5164FE13000D3B979 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F18972F4164FE13000D3B979 /* AppDelegate.m */; };
 		F18972F8164FE13000D3B979 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F18972F6164FE13000D3B979 /* MainMenu.xib */; };
+		F1E67800166082AF00863412 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E677FF166082AF00863412 /* Foundation.framework */; };
+		F1E67806166082B000863412 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F1E67804166082B000863412 /* InfoPlist.strings */; };
+		F1E67809166082B000863412 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F1E67808166082B000863412 /* main.m */; };
+		F1E6780F1660833F00863412 /* zip-service.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = F1E6780E1660833F00863412 /* zip-service.entitlements */; };
+		F1E67810166083AB00863412 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F15F068F1658E98400A74400 /* libz.dylib */; };
+		F1E67814166085D300863412 /* com.dreamtotrue.SandboxedFetch.zip-service.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = F1E677FE166082AF00863412 /* com.dreamtotrue.SandboxedFetch.zip-service.xpc */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F1E678111660857500863412 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F18972D4164FE13000D3B979 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1E677FD166082AF00863412;
+			remoteInfo = "zip-service";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F1E678131660857900863412 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/XPCServices;
+			dstSubfolderSpec = 1;
+			files = (
+				F1E67814166085D300863412 /* com.dreamtotrue.SandboxedFetch.zip-service.xpc in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F129F41F165E69AF003393F3 /* XPCSandBoxedFetch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = XPCSandBoxedFetch.entitlements; path = ../XPCSandBoxedFetch.entitlements; sourceTree = "<group>"; };
@@ -40,6 +69,13 @@
 		F18972F3164FE13000D3B979 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F18972F4164FE13000D3B979 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F18972F7164FE13000D3B979 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F1E677FE166082AF00863412 /* com.dreamtotrue.SandboxedFetch.zip-service.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.dreamtotrue.SandboxedFetch.zip-service.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1E677FF166082AF00863412 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F1E67803166082B000863412 /* zip-service-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "zip-service-Info.plist"; sourceTree = "<group>"; };
+		F1E67805166082B000863412 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F1E67807166082B000863412 /* zip-service-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "zip-service-Prefix.pch"; sourceTree = "<group>"; };
+		F1E67808166082B000863412 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F1E6780E1660833F00863412 /* zip-service.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "zip-service.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +88,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1E677FB166082AF00863412 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E67810166083AB00863412 /* libz.dylib in Frameworks */,
+				F1E67800166082AF00863412 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -60,6 +105,7 @@
 			children = (
 				F153FA571651340900E75EF7 /* ReadMe.rtfd */,
 				F18972E7164FE13000D3B979 /* SingleSandBoxedFetch */,
+				F1E67801166082AF00863412 /* zip-service */,
 				F18972E0164FE13000D3B979 /* Frameworks */,
 				F18972DE164FE13000D3B979 /* Products */,
 			);
@@ -69,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				F18972DD164FE13000D3B979 /* XPCSandBoxedFetch.app */,
+				F1E677FE166082AF00863412 /* com.dreamtotrue.SandboxedFetch.zip-service.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +125,7 @@
 			children = (
 				F15F068F1658E98400A74400 /* libz.dylib */,
 				F18972E1164FE13000D3B979 /* Cocoa.framework */,
+				F1E677FF166082AF00863412 /* Foundation.framework */,
 				F18972E3164FE13000D3B979 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -121,6 +169,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F1E67801166082AF00863412 /* zip-service */ = {
+			isa = PBXGroup;
+			children = (
+				F1E6780E1660833F00863412 /* zip-service.entitlements */,
+				F1E67808166082B000863412 /* main.m */,
+				F1E67802166082B000863412 /* Supporting Files */,
+			);
+			path = "zip-service";
+			sourceTree = "<group>";
+		};
+		F1E67802166082B000863412 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F1E67803166082B000863412 /* zip-service-Info.plist */,
+				F1E67804166082B000863412 /* InfoPlist.strings */,
+				F1E67807166082B000863412 /* zip-service-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -131,15 +199,34 @@
 				F18972D9164FE13000D3B979 /* Sources */,
 				F18972DA164FE13000D3B979 /* Frameworks */,
 				F18972DB164FE13000D3B979 /* Resources */,
+				F1E678131660857900863412 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F1E678121660857500863412 /* PBXTargetDependency */,
 			);
 			name = XPCSandBoxedFetch;
 			productName = SingleSandBoxedFetch;
 			productReference = F18972DD164FE13000D3B979 /* XPCSandBoxedFetch.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F1E677FD166082AF00863412 /* zip-service */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1E6780C166082B000863412 /* Build configuration list for PBXNativeTarget "zip-service" */;
+			buildPhases = (
+				F1E677FA166082AF00863412 /* Sources */,
+				F1E677FB166082AF00863412 /* Frameworks */,
+				F1E677FC166082AF00863412 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "zip-service";
+			productName = "zip-service";
+			productReference = F1E677FE166082AF00863412 /* com.dreamtotrue.SandboxedFetch.zip-service.xpc */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -163,6 +250,7 @@
 			projectRoot = "";
 			targets = (
 				F18972DC164FE13000D3B979 /* XPCSandBoxedFetch */,
+				F1E677FD166082AF00863412 /* zip-service */,
 			);
 		};
 /* End PBXProject section */
@@ -176,6 +264,15 @@
 				F18972F2164FE13000D3B979 /* Credits.rtf in Resources */,
 				F18972F8164FE13000D3B979 /* MainMenu.xib in Resources */,
 				F153FA581651340900E75EF7 /* ReadMe.rtfd in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1E677FC166082AF00863412 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E67806166082B000863412 /* InfoPlist.strings in Resources */,
+				F1E6780F1660833F00863412 /* zip-service.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +290,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1E677FA166082AF00863412 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E67809166082B000863412 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F1E678121660857500863412 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1E677FD166082AF00863412 /* zip-service */;
+			targetProxy = F1E678111660857500863412 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F18972EA164FE13000D3B979 /* InfoPlist.strings */ = {
@@ -218,6 +331,14 @@
 				F18972F7164FE13000D3B979 /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		F1E67804166082B000863412 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1E67805166082B000863412 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -304,6 +425,38 @@
 			};
 			name = Release;
 		};
+		F1E6780A166082B000863412 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "zip-service/zip-service.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "zip-service/zip-service-Prefix.pch";
+				INFOPLIST_FILE = "zip-service/zip-service-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_NAME = "com.dreamtotrue.SandboxedFetch.$(TARGET_NAME:rfc1034identifier)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = Debug;
+		};
+		F1E6780B166082B000863412 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "zip-service/zip-service.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "zip-service/zip-service-Prefix.pch";
+				INFOPLIST_FILE = "zip-service/zip-service-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_NAME = "com.dreamtotrue.SandboxedFetch.$(TARGET_NAME:rfc1034identifier)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -324,6 +477,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F1E6780C166082B000863412 /* Build configuration list for PBXNativeTarget "zip-service" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1E6780A166082B000863412 /* Debug */,
+				F1E6780B166082B000863412 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

@@ -11,12 +11,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Zipper : NSObject
-
-+ (Zipper *)sharedZipper;
+// TODO : xpc service interface
+@protocol Zip <NSObject>
 
 - (void)compressFile:(NSFileHandle *)inFile
               toFile:(NSFileHandle *)outFile
            withReply:(void (^)(NSError *error))reply;
+
+@end
+
+// TODO : inherit from Zip protocol and add NSXPCListenerDelegate for service client listener
+@interface Zipper : NSObject<Zip, NSXPCListenerDelegate>
+
++ (Zipper *)sharedZipper;
 
 @end

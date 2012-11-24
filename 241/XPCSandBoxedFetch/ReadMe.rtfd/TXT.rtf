@@ -16,6 +16,21 @@ Download url - {\field{\*\fldinst{HYPERLINK "http://images.apple.com/ipad/overvi
 \
 I) XPC interface\
 \
+-> zip service\
+* add xpc service - in "project template" of "Add Target", to add xpc service\
+bundle uuid - com.dreamtotrue.SandboxedFetch.zip-service\
+* add resource property file for zip-service, 
+\b zip-service.entitlements [enable sandbox like in main application]\
+
+\b0 * add libz for zip-service and add code signing for "Mac developer" for zip-service.entitlements\
+-> zip service dependency with main application\
+* targets of xpcsandboxedfetch, then add target of zip-service\
+* add copy file in "Add Build Phase" for "wrapper" of zip-service into subpath "Contents/XPCServices", add file of target generated xpc service zip-service with full name\
+\
+AFTER BUILD OF main application, then show content packages in xpcsandboxedfetch with sub-xpcservices folder, see the contents in lists.\
+\
+* refactoring of zip-service of interface and implementation\
+\
 \
 II) XPC service proxy\
 \
