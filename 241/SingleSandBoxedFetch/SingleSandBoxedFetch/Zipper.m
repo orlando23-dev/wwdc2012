@@ -117,6 +117,13 @@ static int zip_compress_file(int infd, int outfd, int level, int strategy,
     return shared;
 }
 
+// TODO : disable the explict ctor - see page 215 of THE BIG NERD RANCH GUIDE for Objective-C programming
+- (id) init{
+    @throw [NSException exceptionWithName:@"ZipperSafeInitialization"
+                                   reason:@"Use +sharedZipper:, not init"
+                                 userInfo:nil];
+}
+
 // This method will handle compressing a file. Note that NSFileHandle works together with NSXPCConnection, to allow an open file to be automatically passed from one application to another. The zip service itself does not have permissions to access arbitary files. It will be allowed to talk only to the file that it is given from the main GUI application.
 - (void)compressFile:(NSFileHandle *)inFile
               toFile:(NSFileHandle *)outFile
